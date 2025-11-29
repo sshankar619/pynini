@@ -3720,7 +3720,8 @@ cpdef MutableFst compose(Fst ifst1,
   _opts.reset(
       new fst.ComposeOptions(connect,
                              _get_compose_filter(tostring(compose_filter))))
-  fst.Compose(deref(ifst1._fst), deref(ifst2._fst), _tfst.get(), deref(_opts))
+  with nogil:
+    fst.Compose(deref(ifst1._fst), deref(ifst2._fst), _tfst.get(), deref(_opts))
   return _init_MutableFst(_tfst.release())
 
 
@@ -4419,7 +4420,8 @@ cpdef MutableFst shortestpath(Fst ifst,
                                   delta,
                                   _weight,
                                   nstate))
-  fst.ShortestPath(deref(ifst._fst), _tfst.get(), deref(_opts))
+  with nogil:
+    fst.ShortestPath(deref(ifst._fst), _tfst.get(), deref(_opts))
   return _init_MutableFst(_tfst.release())
 
 
